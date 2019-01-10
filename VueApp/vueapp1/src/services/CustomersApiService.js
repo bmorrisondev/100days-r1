@@ -11,11 +11,15 @@ export default {
         return response.data
     },
 
-    async createCustomers (customersData) {
+    async createNewCustomers (customerData) {
         let axiosOptions = {
             method: 'post',
             url: `${process.env.VUE_APP_BASEURL}/customer`,
-            data: customersData
+            data: {
+                id: customerData.id,
+                firstName: customerData.firstName,
+                lastName: customerData.lastName
+            }
         }
 
         let response = await axios(axiosOptions)
