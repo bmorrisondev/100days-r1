@@ -1,25 +1,40 @@
 import axios from 'axios'
 
 export default {
-    async getCustomers () {
+    async getCustomers (customerId) {
+        let url = `${process.env.VUE_APP_BASEURL}/customers`
+
+        if (customerId) {
+            url = `${url}/${customerId}`
+        }
+
+        console.log(url)
+
         let axiosOptions = {
             method: 'get',
-            url: `${process.env.VUE_APP_BASEURL}/customer`
+            url: url
+        }
+
+        let response = await axios(axiosOptions)
+        return response.data.data
+    },
+
+    async createNewCustomers (customers) {
+        let axiosOptions = {
+            method: 'post',
+            url: `${process.env.VUE_APP_BASEURL}/customers`,
+            data: customers
         }
 
         let response = await axios(axiosOptions)
         return response.data
     },
 
-    async createNewCustomers (customerData) {
+    async updateCustomer (customer) {
         let axiosOptions = {
-            method: 'post',
-            url: `${process.env.VUE_APP_BASEURL}/customer`,
-            data: {
-                id: customerData.id,
-                firstName: customerData.firstName,
-                lastName: customerData.lastName
-            }
+            method: 'put',
+            url: `${process.env.VUE_APP_BASEURL}/customers/${customer._id}`,
+            data: customer
         }
 
         let response = await axios(axiosOptions)
