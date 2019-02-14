@@ -2,9 +2,12 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser')
-const customerRoutes = require('./modules/customers/routes')
 const morgan = require('morgan')
 const dbhelper = require('./helpers/dbhelper')
+
+// Routes
+const customerRoutes = require('./modules/customers/routes')
+const noteRoutes = require('./modules/customers/notes/routes')
 
 dbhelper.connect()
 
@@ -17,7 +20,6 @@ app.use((req, res, next) => {
     res.header("Access-Control-Allow-Methods", "*");
     res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
-    // Approve response to pre-flight requests
     if('OPTIONS' == req.method) {
         res.send(200);
     } else {
@@ -25,8 +27,7 @@ app.use((req, res, next) => {
     }
 });
 
-// var port = process.env.PORT || 8082
-
 app.use('/api/customers', customerRoutes);
+app.use('/api/notes', noteRoutes);
 
 module.exports = app

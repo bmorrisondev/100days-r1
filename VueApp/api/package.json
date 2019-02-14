@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "set NODE_ENV=dev&&nodemon src/server.js",
+    "dev": "set NODE_ENV=dev&&nodemon src/server.js",
     "test": "set NODE_ENV=test&&nodemon --exec \"mocha --recursive \"src/**/*.spec.js\"\""
   },
   "keywords": [],
